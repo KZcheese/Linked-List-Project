@@ -15,6 +15,39 @@ public class LinkedList<E> {
 		}
 	}
 
+	public void add(E value, int index) {
+		if (index < 0 || index >= size)
+			throw new IndexOutOfBoundsException("" + index);
+		Node<E> tempNode = head;
+		Node<E> node = new Node(value);
+		size++;
+		for (int i = 0; i < index - 1; i++)
+			tempNode = tempNode.getNext();
+		if (index == size) {
+			tempNode.setNext(node);
+		} else {
+			node.setNext(tempNode.getNext());
+			tempNode.setNext(node);
+		}
+	}
+
+	public E remove(int index) {
+		if (index < 0 || index >= size)
+			throw new IndexOutOfBoundsException("" + index);
+		Node<E> tempNode = head;
+		size--;
+		for (int i = 0; i < index - 1; i++)
+			tempNode = tempNode.getNext();
+		if (index == size - 1) {
+			tempNode.setNext(null);
+			return null;
+		} else {
+			Node<E> tempNodeNext = tempNode.getNext();
+			tempNode.setNext(tempNode.getNext().getNext());
+			return tempNodeNext.getValue();
+		}
+	}
+
 	public E get(int index) {
 		if (index < 0 || index >= size)
 			throw new IndexOutOfBoundsException("" + index);
