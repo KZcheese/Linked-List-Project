@@ -1,109 +1,162 @@
-public class LinkedList<E> {
-	private Node<E> head;
+public class LinkedList<E extends Comparable<E>> {
+	private Node head;
 	private int size = 0;
 
 	public void add(E value) {
-		Node<E> node = new Node<E>(value);
+		Node node = new Node(value);
 		if (size < 1)
 			head = node;
 		else {
-			Node<E> tempNode = head;
-			while (tempNode.getNext() != null)
-				tempNode = tempNode.getNext();
-			tempNode.setNext(node);
+			Node tempNode = head;
+			while (tempNode.next != null)
+				tempNode = tempNode.next;
+			tempNode.next = node;
 			size++;
 		}
 	}
 
-	public void add(E value, int index) {
+	public void add(int index, E value) {
 		if (index < 0 || index >= size)
 			throw new IndexOutOfBoundsException("" + index);
-		Node<E> tempNode = head;
-		Node<E> node = new Node(value);
+		Node tempNode = head;
+		Node node = new Node(value);
 		size++;
 		for (int i = 0; i < index - 1; i++)
-			tempNode = tempNode.getNext();
+			tempNode = tempNode.next;
 		if (index == size) {
-			tempNode.setNext(node);
+			tempNode.next = node;
 		} else {
-			node.setNext(tempNode.getNext());
-			tempNode.setNext(node);
+			node.next = tempNode.next;
+			tempNode.next = node;
+		}
+	}
+
+	public void add(Node node) {
+		if (size < 1)
+			head = node;
+		else {
+			Node tempNode = head;
+			while (tempNode.next != null)
+				tempNode = tempNode.next;
+			tempNode.next = node;
+			size++;
+		}
+	}
+
+	public void add(int index, Node node) {
+		if (index < 0 || index >= size)
+			throw new IndexOutOfBoundsException("" + index);
+		Node tempNode = head;
+		size++;
+		for (int i = 0; i < index - 1; i++)
+			tempNode = tempNode.next;
+		if (index == size) {
+			tempNode.next = node;
+		} else {
+			node.next = tempNode.next;
+			tempNode.next = node;
 		}
 	}
 
 	public E remove(int index) {
 		if (index < 0 || index >= size)
 			throw new IndexOutOfBoundsException("" + index);
-		Node<E> tempNode = head;
+		Node tempNode = head;
 		size--;
 		for (int i = 0; i < index - 1; i++)
-			tempNode = tempNode.getNext();
+			tempNode = tempNode.next;
 		if (index == size - 1) {
-			tempNode.setNext(null);
+			tempNode.next = null;
 			return null;
 		} else {
-			Node<E> tempNodeNext = tempNode.getNext();
-			tempNode.setNext(tempNode.getNext().getNext());
-			return tempNodeNext.getValue();
+			Node tempNodeNext = tempNode.next;
+			tempNode.next = tempNode.next.next;
+			return tempNodeNext.value;
+		}
+	}
+
+	public Node removeNode(int index) {
+		if (index < 0 || index >= size)
+			throw new IndexOutOfBoundsException("" + index);
+		Node tempNode = head;
+		size--;
+		for (int i = 0; i < index - 1; i++)
+			tempNode = tempNode.next;
+		if (index == size - 1) {
+			tempNode.next = null;
+			return null;
+		} else {
+			Node tempNodeNext = tempNode.next;
+			tempNode.next = tempNode.next.next;
+			return tempNodeNext;
 		}
 	}
 
 	public E get(int index) {
 		if (index < 0 || index >= size)
 			throw new IndexOutOfBoundsException("" + index);
-		Node<E> tempNode = head;
+		Node tempNode = head;
 		for (int i = 0; i < index; i++)
-			tempNode = tempNode.getNext();
-		return tempNode.getValue();
+			tempNode = tempNode.next;
+		return tempNode.value;
 	}
 
 	public void set(int index, E value) {
 		if (index < 0 || index >= size)
 			throw new IndexOutOfBoundsException("" + index);
-		Node<E> tempNode = head;
+		Node tempNode = head;
 		for (int i = 0; i < index; i++)
-			tempNode = tempNode.getNext();
-		tempNode.setValue(value);
+			tempNode = tempNode.next;
+		tempNode.value = value;
 	}
 
 	public String toString() {
-		Node<E> tempNode = head;
+		Node tempNode = head;
 		String out = "";
 		out += "Size:" + size;
-		while (tempNode.getNext() != null) {
-			out += "\n" + (tempNode.getValue());
-			tempNode = tempNode.getNext();
+		while (tempNode.next != null) {
+			out += "\n" + (tempNode.value);
+			tempNode = tempNode.next;
 		}
 		return out;
 	}
 
-	private class Node<E> {
-		public Node<E> next;
-		E value;
+	public void sort() {
+		LinkedList<E> newList = new LinkedList<E>();
+		Node n = head;
+		while (n.next != null) {
+			boolean isSet = false;
+			for (int i = 0; i < newList.size(); i++) {
+				E value = newList.get(i);
+				if (value.compareTo(n.value) < 0) {
+					newList.add(i, n);
+					isSet = true;
+					break;
+				}
+			}
+			if (!isSet)
+				newList.add(n);
+			n = head.next;
+		}
+		this.head = newList.head;
+	}
+
+	public int size() {
+		return size;
+	}
+
+	private class Node {
+		public Node next;
+		public E value;
 
 		public Node(E value) {
 			this(value, null);
 		}
 
-		public Node(E value, Node<E> next) {
+		public Node(E value, Node next) {
 			this.value = value;
 			this.next = next;
-		}
-
-		public Node<E> getNext() {
-			return next;
-		}
-
-		public void setNext(Node<E> next) {
-			this.next = next;
-		}
-
-		public E getValue() {
-			return value;
-		}
-
-		public void setValue(E value) {
-			this.value = value;
 		}
 	}
+
 }
