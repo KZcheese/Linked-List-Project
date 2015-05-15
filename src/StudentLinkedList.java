@@ -15,8 +15,8 @@ public class StudentLinkedList {
 			while (tempNode.next != null)
 				tempNode = tempNode.next;
 			tempNode.next = node;
-			size++;
 		}
+		size++;
 	}
 
 	public void add(int index, Student value) {
@@ -33,6 +33,7 @@ public class StudentLinkedList {
 			node.next = tempNode.next;
 			tempNode.next = node;
 		}
+		size++;
 	}
 
 	public void add(StudentNode node) {
@@ -43,13 +44,13 @@ public class StudentLinkedList {
 			while (tempNode.next != null)
 				tempNode = tempNode.next;
 			tempNode.next = node;
-			size++;
 		}
+		size++;
 	}
 
 	public void add(int index, StudentNode node) {
-		if (index < 0 || index >= size)
-			throw new IndexOutOfBoundsException("" + index);
+		if (index < 0 || index > size)
+			throw new IndexOutOfBoundsException("" + index + " " + size);
 		StudentNode tempNode = head;
 		size++;
 		for (int i = 0; i < index - 1; i++)
@@ -63,7 +64,7 @@ public class StudentLinkedList {
 	}
 
 	public Student remove(int index) {
-		if (index < 0 || index >= size)
+		if (index < 0 || index > size)
 			throw new IndexOutOfBoundsException("" + index);
 		StudentNode tempNode = head;
 		size--;
@@ -80,7 +81,7 @@ public class StudentLinkedList {
 	}
 
 	public StudentNode removeNode(int index) {
-		if (index < 0 || index >= size)
+		if (index < 0 || index > size)
 			throw new IndexOutOfBoundsException("" + index);
 		StudentNode tempNode = head;
 		size--;
@@ -124,7 +125,6 @@ public class StudentLinkedList {
 			}
 			i++;
 			node = node.next;
-
 		}
 		add(s);
 	}
@@ -176,23 +176,23 @@ public class StudentLinkedList {
 
 	public void sortByAverage() {
 		StudentNode node = head;
-		StudentNode next = head.next;
+		StudentNode next;
 		StudentLinkedList newList = new StudentLinkedList();
 		while (node != null) {
+			next = node.next;
 			newList.insertByAverage(node);
 			node = next;
-			next = node.next;
 		}
 	}
 
 	public void sortByLastName() {
 		StudentNode node = head;
-		StudentNode next = head.next;
+		StudentNode next;
 		StudentLinkedList newList = new StudentLinkedList();
 		while (node != null) {
+			next = node.next;
 			newList.insertByLastName(node);
 			node = next;
-			next = node.next;
 		}
 	}
 
@@ -219,5 +219,24 @@ public class StudentLinkedList {
 		public StudentNode(Student s) {
 			this(s, null);
 		}
+	}
+
+	public static void main(String[] args) {
+		StudentLinkedList list = new StudentLinkedList();
+		list.add(new Student("Thomas", "Edgars", 89));
+		list.add(new Student("Jennifer", "Smith", 86));
+		list.add(new Student("Harold", "Umberton", 78));
+		list.add(new Student("Frank", "Martin", 60));
+		list.add(new Student("Jeremy", "Andrews", 83));
+		list.add(new Student("Laura", "Roberts", 93));
+		list.add(new Student("Adele", "Lincoln", 85));
+		list.add(new Student("Peter", "Smith", 85));
+		list.add(new Student("Larry", "Peterson", 85));
+
+		System.out.println(list);
+		list.sortByLastName();
+		System.out.println(list);
+		list.sortByAverage();
+		System.out.println(list);
 	}
 }
