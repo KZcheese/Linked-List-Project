@@ -68,21 +68,8 @@ public class StudentLinkedList {
 		size++;
 	}
 
-	public Student remove(int index) {
-		if (index < 0 || index > size)
-			throw new IndexOutOfBoundsException("" + index);
-		StudentNode tempNode = head;
-		size--;
-		for (int i = 0; i < index - 1; i++)
-			tempNode = tempNode.next;
-		if (index == size - 1) {
-			tempNode.next = null;
-			return null;
-		} else {
-			StudentNode tempNodeNext = tempNode.next;
-			tempNode.next = tempNode.next.next;
-			return tempNodeNext.value;
-		}
+	public Student removeStudent(int index) {
+		return removeNode(index).value;
 	}
 
 	private StudentNode removeNode(int index) {
@@ -239,11 +226,15 @@ public class StudentLinkedList {
 		list.add(new Student("Peterson", "Larry", 85));
 
 		System.out.println(list);
-		System.out.println("LastName");
-		list.sortByLastName();
-		System.out.println(list);
-		System.out.println("Average");
-		list.sortByAverage();
+		System.out.println();
+//		System.out.println("LastName");
+//		list.sortByLastName();
+//		System.out.println(list);
+//		System.out.println("Average");
+//		list.sortByAverage();
+//		System.out.println(list);
+		System.out.println(list.removeStudent(3));
+		System.out.println();
 		System.out.println(list);
 	}
 }
