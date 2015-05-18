@@ -7,34 +7,11 @@ public class StudentLinkedList {
 	private int size = 0;
 
 	public void add(Student value) {
-		StudentNode node = new StudentNode(value);
-		if (size < 1)
-			head = node;
-		else {
-			StudentNode tempNode = head;
-			while (tempNode.next != null)
-				tempNode = tempNode.next;
-			tempNode.next = node;
-		}
-		size++;
+		add(new StudentNode(value));
 	}
 
 	public void add(int index, Student value) {
-		if (index < 0 || index > size)
-			throw new IndexOutOfBoundsException("" + index);
-		StudentNode node = new StudentNode(value);
-		if (index == 0) {
-			node.next = head;
-			head = node;
-			return;
-		} else {
-			StudentNode tempNode = head;
-			for (int i = 0; i < index - 1; i++)
-				tempNode = tempNode.next;
-			node.next = tempNode.next;
-			tempNode.next = node;
-		}
-		size++;
+		add(index, new StudentNode(value));
 	}
 
 	private void add(StudentNode node) {
@@ -108,17 +85,7 @@ public class StudentLinkedList {
 	}
 
 	public void insertByLastName(Student s) {
-		StudentNode node = head;
-		int i = 0;
-		while (node != null) {
-			if (s.getLastName().compareToIgnoreCase(node.value.getLastName()) <= 0) {
-				add(i, s);
-				return;
-			}
-			i++;
-			node = node.next;
-		}
-		add(s);
+		insertByLastName(new StudentNode(s));
 	}
 
 	private void insertByLastName(StudentNode n) {
@@ -137,17 +104,7 @@ public class StudentLinkedList {
 	}
 
 	public void insertByAverage(Student s) {
-		StudentNode node = head;
-		int i = 0;
-		while (node != null) {
-			if (s.getGPA() <= node.value.getGPA()) {
-				add(i, s);
-				return;
-			}
-			i++;
-			node = node.next;
-		}
-		add(s);
+		insertByAverage(new StudentNode(s));
 	}
 
 	private void insertByAverage(StudentNode n) {
@@ -227,12 +184,12 @@ public class StudentLinkedList {
 
 		System.out.println(list);
 		System.out.println();
-//		System.out.println("LastName");
-//		list.sortByLastName();
-//		System.out.println(list);
-//		System.out.println("Average");
-//		list.sortByAverage();
-//		System.out.println(list);
+		// System.out.println("LastName");
+		// list.sortByLastName();
+		// System.out.println(list);
+		// System.out.println("Average");
+		// list.sortByAverage();
+		// System.out.println(list);
 		System.out.println(list.removeStudent(3));
 		System.out.println();
 		System.out.println(list);
