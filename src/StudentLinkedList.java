@@ -34,7 +34,6 @@ public class StudentLinkedList {
 		if (index == 0) {
 			node.next = head;
 			head = node;
-			return;
 		} else {
 			StudentNode tempNode = head;
 			for (int i = 0; i < index - 1; i++)
@@ -236,7 +235,7 @@ public class StudentLinkedList {
 		System.out.println();
 
 		System.out.println("Adding Alice Henderson");
-		list.add(new Student("Alice", "Henderson", 90));
+		list.insertByAverage(new Student("Alice", "Henderson", 90));
 		System.out.println(list);
 		System.out.println();
 
