@@ -179,8 +179,8 @@ public class StudentLinkedList {
 		list.add(new Student("Jeremy", "Andrews", 83));
 		list.add(new Student("Laura", "Roberts", 93));
 		list.add(new Student("Adele", "Lincoln", 85));
-		list.add(new Student("Peter", "Smith", 85));
-		list.add(new Student("Peterson", "Larry", 85));
+		list.add(new Student("Peter", "Smith", 91));
+		list.add(new Student("Peterson", "Larry", 72));
 
 		System.out.println(list);
 		System.out.println();
