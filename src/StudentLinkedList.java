@@ -49,6 +49,45 @@ public class StudentLinkedList {
 		return removeNode(index).value;
 	}
 
+	public Student removeStudent(String firstName, String lastName, int GPA) {
+		StudentNode node = head;
+		int i = 0;
+		while (node != null) {
+			Student s = node.value;
+			if (s.getFirstName().equals(firstName)
+					&& s.getLastName().equals(lastName) && s.getGPA() == GPA)
+				return removeStudent(i);
+			i++;
+			node = node.next;
+		}
+		return null;
+	}
+
+	public Student removeStudent(Student s) {
+		StudentNode node = head;
+		int i = 0;
+		while (node != null) {
+			Student st = node.value;
+			if (st.equals(s))
+				return removeStudent(i);
+			i++;
+			node = node.next;
+		}
+		return null;
+	}
+
+	public Student getStudent(String firstName, String lastName, int GPA) {
+		StudentNode node = head;
+		while (node != null) {
+			Student s = node.value;
+			if (s.getFirstName().equals(firstName)
+					&& s.getLastName().equals(lastName) && s.getGPA() == GPA)
+				return s;
+			node = node.next;
+		}
+		return null;
+	}
+
 	private StudentNode removeNode(int index) {
 		if (index < 0 || index > size)
 			throw new IndexOutOfBoundsException("" + index);
@@ -172,26 +211,46 @@ public class StudentLinkedList {
 
 	public static void main(String[] args) {
 		StudentLinkedList list = new StudentLinkedList();
-		list.add(new Student("Thomas", "Edgars", 89));
-		list.add(new Student("Jennifer", "Smith", 86));
-		list.add(new Student("Harold", "Umberton", 78));
-		list.add(new Student("Frank", "Martin", 60));
-		list.add(new Student("Jeremy", "Andrews", 83));
-		list.add(new Student("Laura", "Roberts", 93));
-		list.add(new Student("Adele", "Lincoln", 85));
-		list.add(new Student("Peter", "Smith", 91));
-		list.add(new Student("Peterson", "Larry", 72));
-
+		list.insertByLastName(new Student("Thomas", "Edgars", 89));
+		list.insertByLastName(new Student("Jennifer", "Smith", 86));
+		list.insertByLastName(new Student("Harold", "Umberton", 78));
+		list.insertByLastName(new Student("Frank", "Martin", 60));
+		list.insertByLastName(new Student("Jeremy", "Andrews", 83));
+		list.insertByLastName(new Student("Laura", "Roberts", 93));
+		list.insertByLastName(new Student("Adele", "Lincoln", 85));
+		list.insertByLastName(new Student("Peter", "Smith", 91));
+		list.insertByLastName(new Student("Peterson", "Larry", 72));
 		System.out.println(list);
 		System.out.println();
+
+		System.out.println("Removing Frank");
+		System.out.println(list.removeStudent("Frank", "Martin", 60));
+		// System.out.println(list.removeStudent(list.getStudent("Frank",
+		// "Martin", 60)));
+		System.out.println(list);
+		System.out.println();
+
+		System.out.println("Sorting by Average");
+		list.sortByAverage();
+		System.out.println(list);
+		System.out.println();
+
+		System.out.println("Adding Alice Henderson");
+		list.add(new Student("Alice", "Henderson", 90));
+		System.out.println(list);
+		System.out.println();
+
+		System.out.println("Sorting by Last Name");
+		list.sortByLastName();
+		System.out.println(list);
 		// System.out.println("LastName");
 		// list.sortByLastName();
 		// System.out.println(list);
 		// System.out.println("Average");
 		// list.sortByAverage();
 		// System.out.println(list);
-		System.out.println(list.removeStudent(3));
-		System.out.println();
-		System.out.println(list);
+		// System.out.println(list.removeStudent(3));
+		// System.out.println();
+		// System.out.println(list);
 	}
 }
