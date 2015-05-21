@@ -1,3 +1,16 @@
+/**
+ * An incomplete extra credit generic LinkedList<E> that contains basic
+ * functionality such as add, set, get, remove, and sort. Should be fully
+ * functional but is not commented and does not match any of the extra credit
+ * assignments given.
+ * 
+ * DOES NOT CONTRIBUTE TO THE PROJECT ASSIGNMENT IN ANY WAY. IGNORE IF YOU DON'T
+ * WANT TO BOTHER WITH UNCOMMENTED CODE.
+ * 
+ * @author Kevin Zhan
+ * 
+ * @param <E>
+ */
 public class LinkedList<E extends Comparable<E>> {
 	private Node head;
 	private int size = 0;
